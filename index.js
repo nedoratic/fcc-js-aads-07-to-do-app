@@ -77,3 +77,49 @@ const editTask = (buttonEl) => {
 
 	taskForm.classList.toggle('hidden');
 };
+
+// Reset
+const reset = () => {
+	titleInput.value = '';
+	dateInput.value = '';
+	descriptionInput.value = '';
+	taskForm.classList.toggle('hidden');
+	currentTask = {};
+};
+
+if (taskData.length) {
+	updateTaskContainer();
+}
+
+// Event Listeners
+
+// Open Task Form
+openTaskFormBtn.addEventListener('click', () => taskForm.classList.toggle('hidden'));
+
+// Close Task Form
+closeTaskFormBtn.addEventListener('click', () => {
+	const formInputsContainValues = titleInput.value || dateInput.value || descriptionInput.value;
+	const formInputValuesUpdated = titleInput.value !== currentTask.title || dateInput.value !== currentTask.date || descriptionInput.value !== currentTask.description;
+
+	if (formInputsContainValues && formInputValuesUpdated) {
+		confirmCloseDialog.showModal();
+	} else {
+		reset();
+	}
+});
+
+// Cancel
+cancelBtn.addEventListener('click', () => confirmCloseDialog.close());
+
+// Discard
+discardBtn.addEventListener('click', () => {
+	confirmCloseDialog.close();
+	reset();
+});
+
+// Add or Update
+taskForm.addEventListener('submit', (e) => {
+	e.preventDefault();
+
+	addOrUpdateTask();
+});
