@@ -36,3 +36,20 @@ const addOrUpdateTask = () => {
 	updateTaskContainer();
 	reset();
 };
+
+// Update Task Container
+const updateTaskContainer = () => {
+	tasksContainer.innerHTML = '';
+
+	taskData.forEach(({ id, title, date, description }) => {
+		tasksContainer.innerHTML += `
+            <div class="task" id="${id}">
+                <p><strong>Title:</strong> ${title}</p>
+                <p><strong>Date:</strong> ${date}</p>
+                <p><strong>Description:</strong> ${description}</p>
+                <button onclick="editTask(this)" type="button" class="btn">Edit</button>
+                <button onclick="deleteTask(this)" type="button" class="btn">Delete</button> 
+            </div>
+        `;
+	});
+};
